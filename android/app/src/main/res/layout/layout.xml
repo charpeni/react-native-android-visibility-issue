@@ -44,6 +44,22 @@
         android:layout_centerHorizontal="true"
         android:text="Toggle Gone - Visible" />
 
+   <FrameLayout
+        android:id="@+id/my_image_container"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_below="@+id/button_frame_gone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp" />
+
+    <Button
+        android:id="@+id/button_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_image_container"
+        android:layout_centerHorizontal="true"
+        android:text="Load image" />
+
     <Button
         android:id="@+id/button_native_activity"
         android:layout_width="wrap_content"

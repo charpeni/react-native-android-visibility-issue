@@ -2,10 +2,14 @@ package com.rnandroidvisibilityissue;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 public class NativeView extends RelativeLayout {
     public NativeView(final Context context, Boolean isFromReact) {
@@ -27,6 +31,20 @@ public class NativeView extends RelativeLayout {
         buttomFrameGone.setOnClickListener(new OnClickListener() {
             @Override public void onClick(View v) {
                 frameGone.setVisibility(frameGone.isShown() ? View.GONE: View.VISIBLE);
+            }
+        });
+
+        Button buttonImage = (Button) view.findViewById(R.id.button_image);
+        buttonImage.setOnClickListener(new OnClickListener() {
+            @Override public void onClick(View v) {
+                FrameLayout view = (FrameLayout) findViewById(R.id.my_image_container);
+                view.removeAllViews();
+
+                SimpleDraweeView draweeView = new SimpleDraweeView(context);
+                Uri uri = Uri.parse("https://reactjs.org/logo-og.png");
+                draweeView.setImageURI(uri);
+
+                view.addView(draweeView);
             }
         });
 
