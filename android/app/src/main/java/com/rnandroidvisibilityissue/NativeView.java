@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -15,8 +16,22 @@ public class NativeView extends RelativeLayout {
     public NativeView(final Context context, Boolean isFromReact) {
         super(context);
 
+
+
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.layout, this);
+
+        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                for (int i = 0; i < getChildCount(); i++) {
+                    View child = getChildAt(i);
+                    child.measure(MeasureSpec.makeMeasureSpec(getMeasuredWidth(), MeasureSpec.EXACTLY),
+                            MeasureSpec.makeMeasureSpec(getMeasuredHeight(), MeasureSpec.EXACTLY));
+                    child.layout(0, 0, child.getMeasuredWidth(), child.getMeasuredHeight());
+                }
+            }
+        });
 
         Button buttonFrameInvisible = (Button) view.findViewById(R.id.button_frame_invisible);
         final View frameInvisible = view.findViewById(R.id.frame_invisible);
